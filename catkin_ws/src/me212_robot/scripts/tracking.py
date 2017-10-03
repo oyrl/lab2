@@ -31,37 +31,30 @@ class Tracking:
 		#         3) straight line again.
 
 		# stages 1
-		if self.state == 1:
-			if (0 <= x) and (x < 1):
+		if (self.state == 1):
+			if ((0 <= x) and (x < 1)):
 				self.leftMotor.run(1)
 				self.rightMotor.run(1)
-			else:
+			if (1 <= x):
 				self.state = 2
-
-				# one method
-				#self.leftMotor.run(2)
-				# self.rightMotor.run(1)
-
-				# another method
 				self.leftMotor.setSpeed(self.left_pwm)		# 60
 				self.rightMotor.setSpeed(self.left_pwm * 2)	# 120
 
 		# stages 2
-		if self.state == 2:
+		if (self.state == 2):
+			if (0 <= theta):
+				self.leftMotor.setSpeed(self.left_pwm)		# 60
+				self.rightMotor.setSpeed(self.left_pwm * 2)	# 120
 			if (theta >= pi):
 				self.state = 3
 
-				# one method
-				#self.leftMotor.run(1)
-				# self.rightMotor.run(1)
-
-				# another method
+		# stages 3
+		if (self.state == 3):
+			if (0 < x):
 				self.leftMotor.setSpeed(self.left_pwm)
 				self.rightMotor.setSpeed(self.right_pwm)
 
-		# stages 3
-		if self.state == 3:
-			if x <= 0:		# stop
+			if (x <= 0):		# stop
 				# self.state = 
 				self.leftMotor.run(4)
 				self.rightMotor.run(4)
