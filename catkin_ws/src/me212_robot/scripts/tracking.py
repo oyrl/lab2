@@ -24,7 +24,7 @@ class Tracking:
 		y     = msg.data[1]
 		theta = msg.data[2]
 		theta = theta % (2* pi)
-		print x,y,theta
+		#print x,y,theta
 
 		# stages: 1) straight line,
 		#         2) semi-circle
