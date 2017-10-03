@@ -30,6 +30,7 @@ class Tracking:
 		#         2) semi-circle
 		#         3) straight line again.
 
+		print self.state,x,theta
 		# stages 1
 		if (self.state==1):
 			if (x<=1):
@@ -58,7 +59,6 @@ class Tracking:
 				# self.state = 
 				self.leftMotor.run(4)
 				self.rightMotor.run(4)
-
 
 
 	def custom_shutdown(self):
