@@ -24,13 +24,22 @@ class Tracking:
 		y     = msg.data[1]
 		theta = msg.data[2]
 		theta = theta % (2* pi)
-		#print x,y,theta
+		print x,y,theta
 
 		# stages: 1) straight line,
 		#         2) semi-circle
 		#         3) straight line again.
 
-		print self.state,x,theta
+		if ((self.state == 1) and (x < 1)):
+			angle_err = theta
+		if(theta >= angle_err):
+			theta = theta - angle_err
+		else:
+			theta = theta + 2 * pi - angle_err
+
+		print self.state
+		print x
+		print theta
 
 		# stages 1
 		if (self.state == 1):
@@ -39,9 +48,6 @@ class Tracking:
 				self.rightMotor.run(1)
 			elif (1 <= x):
 				self.state = 2
-
-				angle_err = theta
-
 				self.leftMotor.setSpeed(self.left_pwm)		# 60
 				self.rightMotor.setSpeed(self.left_pwm * 2)	# 120
 			else:
@@ -49,15 +55,9 @@ class Tracking:
 
 		# stages 2
 		if (self.state == 2):
-			# clac the angle error
-			if(theta >= angle_err):
-				angle = theta - angle_err
-			else:
-				angle = theta + 2 * pi - angle_err
-
-			if (angle < pi):
+			if (theta < pi):
 				print "Here is in state 2"
-			elif (pi <= angle):
+			elif (pi <= theta):
 				self.state = 3
 				self.leftMotor.setSpeed(self.left_pwm)
 				self.rightMotor.setSpeed(self.right_pwm)
